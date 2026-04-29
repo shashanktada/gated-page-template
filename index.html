@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>System of Action Framework | TADA</title>
+<title>The Enterprise Maturity Gap | TADA</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
@@ -11,16 +11,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --plum:#412148;
-    --plum-dark:#17091d;
-    --cyan:#1defff;
-    --cyan-dark:#1eaabc;
-    --coral:#ff635d;
-    --ink:#121212;
-    --muted:#666663;
-    --soft:#f8f8f7;
-    --line:#e7e4e1;
-    --white:#ffffff;
+    --plum: #412148;
+    --plum-dark: #2e1633;
+    --cyan: #1defff;
+    --cyan-mid: #1eaabc;
+    --coral: #ff635d;
+    --ink: #121212;
+    --muted: #666663;
+    --soft: #f8f8f7;
+    --line: #e7e4e1;
+    --white: #ffffff;
   }
 
   body {
@@ -33,845 +33,827 @@
 
   h1, h2, h3 {
     font-family: "Space Grotesk", Inter, sans-serif;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
     line-height: 1.08;
   }
 
-  a { color: inherit; text-decoration: none; }
-
-  .container {
-    width: min(1160px, calc(100% - 48px));
-    margin: 0 auto;
-  }
-
-  .nav {
+  /* ─── NAV ─── */
+  nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 68px;
+    top: 0; left: 0; right: 0;
+    height: 64px;
     z-index: 50;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-  }
-
-  .nav-inner {
-    height: 68px;
+    background: rgba(65,33,72,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 48px;
   }
 
-  .logo {
-    font-family: "Space Grotesk", Inter, sans-serif;
-    font-size: 22px;
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--plum);
+    color: #fff;
+    text-decoration: none;
   }
 
-  .nav-btn {
-    background: var(--plum);
-    color: white;
-    border: 0;
-    border-radius: 8px;
-    padding: 11px 18px;
+  .nav-logo svg { width: 28px; height: 28px; }
+
+  .nav-tag {
+    font-size: 11px;
     font-weight: 700;
-    cursor: pointer;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid rgba(29,239,255,0.3);
+    padding: 4px 10px;
+    border-radius: 4px;
   }
 
+  /* ─── HERO + GATE (combined above fold) ─── */
   .hero {
-    background:
-      radial-gradient(circle at 50% 10%, rgba(29,239,255,0.16), transparent 38%),
-      linear-gradient(180deg, var(--plum), var(--plum-dark));
-    color: white;
-    padding: 150px 0 96px;
+    background: var(--plum);
+    padding: 100px 48px 72px;
     position: relative;
     overflow: hidden;
   }
 
-  .hero::after {
-    content: "";
+  /* Soft radial glow — no grid */
+  .hero::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: linear-gradient(to bottom, black, transparent);
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(29,239,255,0.12) 0%, transparent 65%);
     pointer-events: none;
   }
 
-  .hero-content {
+  .hero-inner {
     position: relative;
     z-index: 2;
-    max-width: 860px;
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 64px;
+    align-items: center;
   }
 
+  .hero-left {}
+
   .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.16em;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--cyan);
-    font-weight: 800;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
   }
 
   .hero h1 {
-    font-size: clamp(48px, 7vw, 88px);
-    max-width: 820px;
-    margin-bottom: 26px;
-  }
-
-  .hero h1 span { color: var(--cyan); }
-
-  .hero-sub {
-    max-width: 670px;
-    font-size: 20px;
-    color: rgba(255,255,255,0.72);
-    margin-bottom: 36px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    border-radius: 9px;
-    padding: 15px 24px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    border: 1px solid transparent;
-  }
-
-  .btn-primary {
-    background: var(--cyan);
-    color: var(--plum);
-  }
-
-  .btn-secondary {
-    background: rgba(255,255,255,0.06);
-    color: white;
-    border-color: rgba(255,255,255,0.22);
-  }
-
-  section {
-    padding: 96px 0;
-  }
-
-  .section-kicker {
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--cyan-dark);
-    font-weight: 800;
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: clamp(34px, 4vw, 56px);
-    max-width: 780px;
-    margin-bottom: 22px;
-  }
-
-  .section-copy {
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 760px;
-  }
-
-  .problem {
-    background: white;
-  }
-
-  .problem-grid {
-    margin-top: 52px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-
-  .problem-card {
-    padding: 34px;
-    border-right: 1px solid var(--line);
-    background: white;
-  }
-
-  .problem-card:last-child { border-right: 0; }
-
-  .problem-card h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
-    color: var(--plum);
-  }
-
-  .problem-card p {
-    color: var(--muted);
-    font-size: 15px;
-  }
-
-  .maturity {
-    background: var(--soft);
-  }
-
-  .maturity-wrap {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 32px;
-    align-items: stretch;
-  }
-
-  .ladder {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .level {
-    display: grid;
-    grid-template-columns: 72px 1fr 170px;
-    gap: 18px;
-    align-items: center;
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .level:last-child { border-bottom: 0; }
-
-  .level-num {
-    font-family: "Space Grotesk", Inter, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--plum);
-  }
-
-  .level h3 {
-    font-size: 18px;
-    margin-bottom: 3px;
-  }
-
-  .level p {
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  .tag {
-    justify-self: end;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 800;
-    border-radius: 999px;
-    padding: 8px 10px;
-    background: #f1efed;
-    color: #5d5956;
-    white-space: nowrap;
-  }
-
-  .tag.action {
-    background: rgba(29,239,255,0.18);
-    color: var(--plum);
-  }
-
-  .tag.stall {
-    background: rgba(255,99,93,0.14);
-    color: #9b2c27;
-  }
-
-  .maturity-note {
-    background: var(--plum);
-    color: white;
-    border-radius: 20px;
-    padding: 36px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .maturity-note h3 {
-    font-size: 34px;
+    font-size: clamp(36px, 4.5vw, 60px);
+    color: #fff;
     margin-bottom: 18px;
+    max-width: 560px;
   }
 
-  .maturity-note p {
-    color: rgba(255,255,255,0.72);
-    font-size: 17px;
-  }
-
-  .maturity-note strong {
+  .hero h1 em {
+    font-style: normal;
     color: var(--cyan);
   }
 
-  .loop {
-    background: var(--plum-dark);
-    color: white;
-    position: relative;
-    overflow: hidden;
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.65;
+    max-width: 480px;
+    margin-bottom: 28px;
   }
 
-  .loop::before {
-    content: "";
-    position: absolute;
-    width: 720px;
-    height: 720px;
+  /* tease bullets — questions, not answers */
+  .tease-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tease-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.45;
+  }
+
+  .tease-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    border: 1px solid rgba(29,239,255,0.18);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background: var(--cyan);
+    margin-top: 5px;
+    flex-shrink: 0;
   }
 
-  .loop .container {
+  /* ─── GATE CARD ─── */
+  .gate-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
     position: relative;
     z-index: 2;
   }
 
-  .loop .section-copy {
-    color: rgba(255,255,255,0.66);
-  }
-
-  .loop-grid {
-    margin-top: 58px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-  }
-
-  .loop-card {
-    background: rgba(255,255,255,0.055);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;
-    padding: 28px;
-    min-height: 210px;
-  }
-
-  .loop-number {
-    color: var(--cyan);
-    font-weight: 900;
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    margin-bottom: 18px;
-  }
-
-  .loop-card h3 {
-    font-size: 25px;
-    margin-bottom: 12px;
-  }
-
-  .loop-card p {
-    color: rgba(255,255,255,0.66);
-    font-size: 15px;
-  }
-
-  .definition {
-    background: white;
-  }
-
-  .definition-box {
-    border-radius: 24px;
-    background: var(--plum);
-    color: white;
-    padding: 56px;
-    margin-bottom: 32px;
-  }
-
-  .definition-box h2 {
-    font-size: clamp(34px, 4vw, 58px);
-    max-width: 980px;
-  }
-
-  .definition-box span {
-    color: var(--cyan);
-  }
-
-  .pill-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .pill-card {
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 26px;
-    background: white;
-  }
-
-  .pill-card h3 {
-    font-size: 22px;
-    color: var(--plum);
-    margin-bottom: 10px;
-  }
-
-  .pill-card p {
-    color: var(--muted);
-    font-size: 15px;
-  }
-
-  .proof {
-    background: var(--soft);
-  }
-
-  .proof-grid {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-  }
-
-  .proof-card {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 34px;
-  }
-
-  .proof-metric {
-    font-family: "Space Grotesk", Inter, sans-serif;
-    font-size: 56px;
+  .gate-card-label {
+    font-size: 10px;
     font-weight: 800;
-    color: var(--plum);
-    margin-bottom: 10px;
-  }
-
-  .proof-card h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
-  }
-
-  .proof-card p {
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     color: var(--muted);
+    margin-bottom: 4px;
   }
 
-  .gate {
-    background:
-      radial-gradient(circle at 85% 20%, rgba(29,239,255,0.18), transparent 28%),
-      var(--plum);
-    color: white;
-  }
-
-  .gate-wrap {
-    display: grid;
-    grid-template-columns: 1fr 430px;
-    gap: 48px;
-    align-items: center;
-  }
-
-  .gate h2 {
-    font-size: clamp(38px, 4.5vw, 62px);
-    margin-bottom: 20px;
-  }
-
-  .gate p {
-    color: rgba(255,255,255,0.72);
-    font-size: 18px;
-    max-width: 650px;
-    margin-bottom: 28px;
-  }
-
-  .gate-list {
-    list-style: none;
-    display: grid;
-    gap: 12px;
-  }
-
-  .gate-list li {
-    color: rgba(255,255,255,0.82);
-    font-weight: 600;
-  }
-
-  .gate-list li::before {
-    content: "→";
-    color: var(--cyan);
-    margin-right: 10px;
-  }
-
-  .form-card {
-    background: white;
+  .gate-card h2 {
+    font-size: 22px;
     color: var(--ink);
-    border-radius: 22px;
-    padding: 30px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.26);
+    margin-bottom: 6px;
+    line-height: 1.2;
   }
 
-  .form-card h3 {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-
-  .form-card p {
+  .gate-card-sub {
+    font-size: 13px;
     color: var(--muted);
-    font-size: 14px;
     margin-bottom: 22px;
+    line-height: 1.5;
   }
+
+  .field { margin-bottom: 12px; }
 
   .field label {
     display: block;
-    font-weight: 800;
-    font-size: 13px;
-    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #4a5568;
+    margin-bottom: 5px;
   }
 
   .field input {
     width: 100%;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 14px 14px;
-    font-size: 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 11px 13px;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    color: var(--ink);
+    background: #fafafa;
     outline: none;
+    transition: border-color 0.15s, background 0.15s;
   }
 
   .field input:focus {
-    border-color: var(--plum);
+    border-color: var(--cyan-mid);
+    background: #fff;
   }
 
-  .form-card button {
+  .field input::placeholder { color: #b8bfc8; }
+
+  .submit-btn {
     width: 100%;
-    margin-top: 16px;
+    margin-top: 4px;
     background: var(--plum);
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    padding: 15px;
-    font-weight: 800;
-    font-size: 15px;
-    cursor: pointer;
-  }
-
-  .privacy {
-    margin-top: 14px;
-    font-size: 12px;
-    color: #777;
-  }
-
-  .footer {
-    background: #090909;
-    color: rgba(255,255,255,0.54);
-    padding: 32px 0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 20px;
     font-size: 14px;
-  }
-
-  .footer-inner {
+    font-weight: 800;
+    font-family: "Space Grotesk", sans-serif;
+    cursor: pointer;
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
   }
 
-  @media (max-width: 900px) {
-    .problem-grid,
-    .maturity-wrap,
-    .loop-grid,
-    .pill-grid,
-    .proof-grid,
-    .gate-wrap {
-      grid-template-columns: 1fr;
-    }
+  .submit-btn:hover { background: #5a2f6a; }
+  .submit-btn:active { transform: scale(0.99); }
 
-    .level {
-      grid-template-columns: 54px 1fr;
-    }
+  .submit-btn .arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  .submit-btn:hover .arrow { transform: translateX(3px); }
 
-    .tag {
-      grid-column: 2;
-      justify-self: start;
-    }
+  .gate-privacy {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #b0bac7;
+    line-height: 1.5;
+    text-align: center;
+  }
 
-    .definition-box {
-      padding: 34px;
-    }
+  .gate-includes {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
 
-    .hero {
-      padding-top: 128px;
-    }
+  .gate-includes-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #c0cbd8;
+    margin-bottom: 10px;
+  }
 
-    .footer-inner {
-      flex-direction: column;
-    }
+  .gate-includes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .gate-includes-list li {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .gate-includes-list li::before {
+    content: '→';
+    color: var(--coral);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  /* success state */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .success-icon {
+    width: 48px;
+    height: 48px;
+    background: #eaf5f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .success-state h3 {
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .success-state p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--plum);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Space Grotesk", sans-serif;
+    transition: background 0.15s;
+  }
+  .dl-btn:hover { background: #5a2f6a; }
+
+  /* ─── REPEATABLE BODY SECTIONS ─── */
+  /* These use a consistent token system so any section can be added/swapped */
+
+  .container {
+    width: min(1160px, calc(100% - 64px));
+    margin: 0 auto;
+  }
+
+  /* Section wrapper */
+  .s {
+    padding: 80px 0;
+  }
+
+  .s--plum {
+    background: var(--plum);
+    color: #fff;
+  }
+
+  .s--soft {
+    background: var(--soft);
+  }
+
+  .s--white {
+    background: #fff;
+  }
+
+  /* Section header */
+  .s-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan-mid);
+    margin-bottom: 12px;
+  }
+
+  .s--plum .s-kicker { color: var(--cyan); }
+
+  .s-title {
+    font-family: "Space Grotesk", Inter, sans-serif;
+    font-size: clamp(26px, 3vw, 40px);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    max-width: 700px;
+  }
+
+  .s--plum .s-title { color: #fff; }
+
+  .s-body {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 640px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+  }
+
+  .s--plum .s-body { color: rgba(255,255,255,0.55); }
+
+  /* ─── CARD GRID (repeatable) ─── */
+  /* Use .grid-3 / .grid-4 / .grid-2 */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .card--plum {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .card-num {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-family: "Space Grotesk", Inter, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .card--plum .card-title { color: #fff; }
+
+  .card-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .card--plum .card-body { color: rgba(255,255,255,0.55); }
+
+  .card-stat {
+    font-family: "Space Grotesk", Inter, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--plum);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  /* ─── HIGHLIGHT QUOTE BOX ─── */
+  .quote-box {
+    background: var(--plum);
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 52px;
+    margin-bottom: 24px;
+  }
+
+  .quote-box p {
+    font-family: "Space Grotesk", Inter, sans-serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    max-width: 900px;
+  }
+
+  .quote-box em {
+    font-style: normal;
+    color: var(--cyan);
+  }
+
+  /* ─── FINAL CTA STRIP ─── */
+  .cta-strip {
+    background: var(--plum);
+    padding: 64px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-strip::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(29,239,255,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-strip-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-strip h2 {
+    font-family: "Space Grotesk", Inter, sans-serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+
+  .cta-strip h2 span { color: var(--cyan); }
+
+  .cta-strip p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 28px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cyan);
+    color: var(--plum);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: "Space Grotesk", sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .cta-btn:hover { opacity: 0.88; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #090909;
+    color: rgba(255,255,255,0.3);
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+
+  .footer-logo {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    .hero { padding: 96px 24px 56px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: 32px; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .s { padding: 56px 0; }
+    .container { width: calc(100% - 48px); }
+    .quote-box { padding: 32px; }
+    .cta-strip { padding: 56px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
   }
 </style>
 </head>
-
 <body>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="#" class="logo">TADA</a>
-    <a href="#download" class="nav-btn">Download Framework</a>
-  </div>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 32 32" fill="none">
+      <polygon points="4,28 14,4 20,14" fill="#412148"/>
+      <polygon points="14,4 24,28 20,14" fill="#1eaabc"/>
+      <polygon points="4,28 20,14 24,28" fill="#ff635d"/>
+    </svg>
+    TADA
+  </a>
+  <div class="nav-tag">Research</div>
 </nav>
 
-<header class="hero">
-  <div class="container hero-content">
-    <div class="eyebrow">System of Action Framework</div>
-    <h1>ERP + Copilots <span>≠ Action</span></h1>
-    <p class="hero-sub">
-      The real gap in enterprise operations is not intelligence. It is the absence of a shared adaptive model where decisions can actually change the state of the enterprise.
-    </p>
-    <div class="hero-actions">
-      <a href="#download" class="btn-primary">Download the Framework</a>
-      <a href="#model" class="btn-secondary">Explore the Model</a>
-    </div>
-  </div>
-</header>
 
-<section class="problem">
-  <div class="container">
-    <div class="section-kicker">The problem</div>
-    <h2 class="section-title">Most enterprises can see. Few can act.</h2>
-    <p class="section-copy">
-      ERP, MES, WMS, CRM, POS, and planning tools each capture a slice of the enterprise. But industrial operations are not a data set. They are a live network of functions, constraints, tradeoffs, and decisions.
-    </p>
+<!-- ═══════════════════════════════════════════
+     HERO + GATE — combined, form visible immediately
+════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
 
-    <div class="problem-grid">
-      <div class="problem-card">
-        <h3>Systems record history</h3>
-        <p>Most enterprise systems were designed to capture transactions, not coordinate real-time operational action.</p>
-      </div>
-      <div class="problem-card">
-        <h3>Copilots improve access</h3>
-        <p>Language interfaces make systems easier to query, but they do not automatically close the loop from insight to execution.</p>
-      </div>
-      <div class="problem-card">
-        <h3>Action needs a model</h3>
-        <p>Teams need a shared, adaptive operating model where options, tradeoffs, and decisions can change enterprise state.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="maturity" id="model">
-  <div class="container">
-    <div class="section-kicker">The maturity gap</div>
-    <h2 class="section-title">Most enterprises are stuck at Level 3. Decisions happen at Level 6.</h2>
-    <p class="section-copy">
-      The shift from systems of record to systems of action is not a feature upgrade. It is a maturity jump.
-    </p>
-
-    <div class="maturity-wrap">
-      <div class="ladder">
-        <div class="level">
-          <div class="level-num">L7</div>
-          <div>
-            <h3>Deterministic Modeling & Prediction</h3>
-            <p>Engineered outcomes, not probabilistic guesses.</p>
-          </div>
-          <div class="tag action">System of Action</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L6</div>
-          <div>
-            <h3>Real-Time Planning & Orchestration</h3>
-            <p>Detect, decide, and do across the network.</p>
-          </div>
-          <div class="tag action">System of Action</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L5</div>
-          <div>
-            <h3>Operating Model + LLM Integration</h3>
-            <p>Process-aware intelligence grounded in the model.</p>
-          </div>
-          <div class="tag">System of Insight</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L4</div>
-          <div>
-            <h3>Business Model & Data Structure</h3>
-            <p>One synchronized model of the enterprise.</p>
-          </div>
-          <div class="tag">Shared Model</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L3</div>
-          <div>
-            <h3>Integration & Harmonization</h3>
-            <p>Cross-system validation and organization.</p>
-          </div>
-          <div class="tag stall">Stall Point</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L2</div>
-          <div>
-            <h3>Data Labeling & MDM</h3>
-            <p>Data available, tagged, and governed.</p>
-          </div>
-          <div class="tag">System of Record</div>
-        </div>
-
-        <div class="level">
-          <div class="level-num">L1</div>
-          <div>
-            <h3>Data & Transaction Capture</h3>
-            <p>ERP, POS, CRM, MES, and systems of work.</p>
-          </div>
-          <div class="tag">System of Record</div>
-        </div>
-      </div>
-
-      <div class="maturity-note">
-        <div>
-          <h3>The category move is above ERP.</h3>
-          <p>
-            ERPs own L1 and reach into L2. Copilots put a language layer on L1–L2. But enterprise action requires a shared model, process-aware intelligence, and real-time orchestration.
-          </p>
-        </div>
-        <p><strong>TADA is built for L4 → L7.</strong></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="loop">
-  <div class="container">
-    <div class="section-kicker">The operating loop</div>
-    <h2 class="section-title">A System of Action is not a dashboard. It is a loop.</h2>
-    <p class="section-copy">
-      Action happens when live state creates feasible options, options expose tradeoffs, decisions are committed, and execution updates the enterprise state.
-    </p>
-
-    <div class="loop-grid">
-      <div class="loop-card">
-        <div class="loop-number">01</div>
-        <h3>State</h3>
-        <p>What is live across demand, supply, inventory, production, cost, service, risk, and capacity.</p>
-      </div>
-
-      <div class="loop-card">
-        <div class="loop-number">02</div>
-        <h3>Options</h3>
-        <p>Feasible moves grounded in the actual constraints of the network, not free-text guesses.</p>
-      </div>
-
-      <div class="loop-card">
-        <div class="loop-number">03</div>
-        <h3>Decision</h3>
-        <p>Tradeoffs made visible across cost, service, risk, carbon, margin, and operational impact.</p>
-      </div>
-
-      <div class="loop-card">
-        <div class="loop-number">04</div>
-        <h3>Execution</h3>
-        <p>Committed action changes the state of the enterprise, and the loop starts again.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="definition">
-  <div class="container">
-    <div class="definition-box">
-      <h2>
-        A System of Action is a <span>shared, adaptive model</span> where many people and many agents change the state of the enterprise together.
-      </h2>
-    </div>
-
-    <div class="pill-grid">
-      <div class="pill-card">
-        <h3>Shared</h3>
-        <p>Planners, operators, executives, and AI agents work from the same live state.</p>
-      </div>
-
-      <div class="pill-card">
-        <h3>Adaptive</h3>
-        <p>The model updates as reality changes and as decisions are committed.</p>
-      </div>
-
-      <div class="pill-card">
-        <h3>Collaborative</h3>
-        <p>Humans and agents develop options, compare tradeoffs, and act together.</p>
-      </div>
-
-      <div class="pill-card">
-        <h3>Closed Loop</h3>
-        <p>Execution updates the enterprise state instead of stopping at recommendation.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="proof">
-  <div class="container">
-    <div class="section-kicker">Proof points</div>
-    <h2 class="section-title">Built for engineered value chains where decisions cannot wait.</h2>
-    <p class="section-copy">
-      TADA helps complex enterprises move from fragmented visibility to coordinated action across supply, procurement, operations, and planning.
-    </p>
-
-    <div class="proof-grid">
-      <div class="proof-card">
-        <div class="proof-metric">$256M</div>
-        <h3>Total enterprise benefits</h3>
-        <p>Generated at a $10B automotive manufacturer by extending supply visibility, reducing expedite costs, and improving supplier coordination.</p>
-      </div>
-
-      <div class="proof-card">
-        <div class="proof-metric">16%</div>
-        <h3>Reduction in TCO and acquisition costs</h3>
-        <p>Delivered through improved cost transparency, working capital efficiency, and enterprise-wide procurement visibility.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="gate" id="download">
-  <div class="container gate-wrap">
-    <div>
-      <div class="section-kicker">Download the framework</div>
-      <h2>Get the System of Action maturity model.</h2>
-      <p>
-        Use the framework to understand where your enterprise sits today, why ERP + copilots are not enough, and what it takes to move from visibility to action.
+    <!-- Left: teaser copy -->
+    <div class="hero-left">
+      <div class="eyebrow">Whitepaper · April 2026</div>
+      <h1>The <em>Maturity Gap</em> Between ERP and Enterprise Action</h1>
+      <p class="hero-sub">
+        Why ERP + copilots stop three levels short of where decisions get made — and what it takes to close the gap.
       </p>
-
-      <ul class="gate-list">
-        <li>Full 7-level enterprise maturity model</li>
-        <li>System of Record vs System of Insight vs System of Action</li>
-        <li>State → Options → Decision → Execution operating loop</li>
-        <li>How to explain the gap to executives and operators</li>
+      <ul class="tease-list">
+        <li>Where does your enterprise sit on the 7-level maturity hierarchy?</li>
+        <li>What separates a System of Action from a smarter dashboard?</li>
+        <li>Why every major competitor is pinned below Level 6</li>
+        <li>The operating loop that ERP + AI can't close</li>
       </ul>
     </div>
 
-    <form class="form-card">
-      <h3>Access the framework</h3>
-      <p>Enter your email to receive the full System of Action framework.</p>
+    <!-- Right: gate card — form is right here, no extra click -->
+    <div class="gate-card" id="gate-card">
 
-      <div class="field">
-        <label for="email">Business email</label>
-        <input id="email" name="email" type="email" placeholder="name@company.com" required />
+      <div id="form-view">
+        <div class="gate-card-label">Free whitepaper</div>
+        <h2>Get instant access</h2>
+        <p class="gate-card-sub">Enter your work email to download the full report.</p>
+
+        <form id="gate-form" onsubmit="handleSubmit(event)" novalidate>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required />
+          </div>
+          <!-- First name optional — uncomment if Prashant/Kannan want it
+          <div class="field">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Alex" />
+          </div>
+          -->
+
+          <!-- HubSpot: replace PORTAL_ID and FORM_GUID before launch
+          <input type="hidden" name="hs_context" value="">
+          -->
+
+          <button type="submit" class="submit-btn">
+            Download the whitepaper <span class="arrow">→</span>
+          </button>
+        </form>
+
+        <p class="gate-privacy">No spam. Unsubscribe anytime. We'll only send relevant research.</p>
+
+        <div class="gate-includes">
+          <div class="gate-includes-lbl">What's inside</div>
+          <ul class="gate-includes-list">
+            <li>Full 7-level Enterprise Maturity Hierarchy</li>
+            <li>State → Options → Decision → Execution loop</li>
+            <li>Competitive positioning against SAP, o9, Kinaxis &amp; more</li>
+            <li>Visual framework for executive conversations</li>
+          </ul>
+        </div>
       </div>
 
-      <button type="submit">Get the Framework</button>
-
-      <div class="privacy">
-        By submitting, you agree to be contacted by TADA. Additional enrichment can be handled through HubSpot and SalesIntel.
+      <div class="success-state" id="success-view">
+        <div class="success-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>You're all set</h3>
+        <p>Your whitepaper is ready. A copy has also been sent to your inbox.</p>
+        <a href="#" class="dl-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
       </div>
-    </form>
+
+    </div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container footer-inner">
-    <div>TADA</div>
-    <div>© 2026 TADA. All rights reserved.</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: The 3 root causes (teaser, not educational)
+     REPEATABLE: swap cards for any whitepaper topic
+════════════════════════════════════════════ -->
+<section class="s s--white">
+  <div class="container">
+    <div class="s-kicker">Why it matters</div>
+    <h2 class="s-title">Three forces that keep enterprises stuck</h2>
+    <p class="s-body">Most industrial enterprises share the same structural bottleneck. The whitepaper names it, maps it, and shows the path out.</p>
+
+    <div class="card-grid grid-3">
+      <div class="card">
+        <div class="card-title">Systems record, not act</div>
+        <div class="card-body">ERP, MES, and WMS were engineered to capture transactions, not coordinate real-time decisions across a live network.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Copilots reach a ceiling</div>
+        <div class="card-body">A language layer on L1–L2 data is useful. It is also three maturity levels short of where decisions actually get made.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Action needs a shared model</div>
+        <div class="card-body">Without a live, adaptive model of the enterprise, "Detect · Decide · Do" is a slogan — not a capability.</div>
+      </div>
+    </div>
   </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION: Maturity teaser — peak, don't explain
+     REPEATABLE: works for any framework/hierarchy
+════════════════════════════════════════════ -->
+<section class="s s--soft">
+  <div class="container">
+    <div class="s-kicker">The framework</div>
+    <h2 class="s-title">A 7-level hierarchy — most enterprises are stuck at Level 3</h2>
+    <p class="s-body">The whitepaper maps every enterprise on a maturity ladder and shows exactly where ERP, copilots, and point solutions run out of road. Download to see the full model.</p>
+
+    <div class="card-grid grid-2">
+      <div class="card">
+        <div class="card-stat">L3</div>
+        <div class="card-title">Where most large industrials stall</div>
+        <div class="card-body">Integration and harmonization is the giant step most enterprises never fully complete. It's where ERP projects run out of steam.</div>
+      </div>
+      <div class="card">
+        <div class="card-stat">L6–7</div>
+        <div class="card-title">Where decisions get made</div>
+        <div class="card-body">Real-time orchestration and deterministic modeling require a different architecture — one ERP vendors haven't built and copilots can't retrofit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION: Pull quote — the key idea
+     REPEATABLE: use for any whitepaper's core claim
+════════════════════════════════════════════ -->
+<section class="s s--white">
+  <div class="container">
+    <div class="quote-box">
+      <p>A System of Action is a <em>shared, adaptive model</em> where many people — and many agents — develop practical options, make decisions with visible tradeoffs, and change the state of the enterprise together.</p>
+    </div>
+    <div class="card-grid grid-4">
+      <div class="card">
+        <div class="card-title">Shared</div>
+        <div class="card-body">Planners, operators, executives, and AI agents — same live state.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Adaptive</div>
+        <div class="card-body">Model updates as reality changes and decisions are committed.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Collaborative</div>
+        <div class="card-body">Humans and agents act together, not in separate loops.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Closed Loop</div>
+        <div class="card-body">Execution actually updates the enterprise state. The loop restarts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION: Social proof — numbers only, no story
+     REPEATABLE: swap for any case study stats
+════════════════════════════════════════════ -->
+<section class="s s--plum">
+  <div class="container">
+    <div class="s-kicker">Proof</div>
+    <h2 class="s-title">Enterprises that have made the move</h2>
+    <p class="s-body">The whitepaper includes detailed case studies. Here's a preview of the outcomes.</p>
+
+    <div class="card-grid grid-3">
+      <div class="card card--plum">
+        <div class="card-stat" style="color:var(--cyan);">$256M</div>
+        <div class="card-title">Enterprise benefits</div>
+        <div class="card-body">Generated at a $10B automotive OEM across supply, procurement, and operations.</div>
+      </div>
+      <div class="card card--plum">
+        <div class="card-stat" style="color:var(--cyan);">16×</div>
+        <div class="card-title">Supply visibility window</div>
+        <div class="card-body">Extended from 2-day reactive signals to 16-week proactive supply management.</div>
+      </div>
+      <div class="card card--plum">
+        <div class="card-stat" style="color:var(--cyan);">48h</div>
+        <div class="card-title">Disruption response</div>
+        <div class="card-body">A critical supplier going dark — detected, optioned, and resolved in under 48 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FINAL CTA STRIP
+     REPEATABLE: always appears at bottom
+════════════════════════════════════════════ -->
+<section class="cta-strip">
+  <div class="cta-strip-inner">
+    <h2>Ready to see where <span>your enterprise</span> sits?</h2>
+    <p>Download the full maturity framework. Free — no subscription required.</p>
+    <a href="#gate-card" class="cta-btn">Download the whitepaper →</a>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-logo">TADA</div>
+  <div>© 2026 TADA. All rights reserved.</div>
 </footer>
 
+
 <script>
-  document.querySelector(".form-card").addEventListener("submit", function(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    alert("Form placeholder submitted. Connect this to HubSpot before publishing.");
+
+    const email = document.getElementById('email').value;
+    if (!email || !email.includes('@')) return;
+
+    // ─── HubSpot Forms API ──────────────────────────────
+    // Uncomment and fill in PORTAL_ID + FORM_GUID before launch.
+    //
+    // const PORTAL_ID = 'YOUR_PORTAL_ID';
+    // const FORM_GUID = 'YOUR_FORM_GUID';
+    //
+    // fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     fields: [{ name: 'email', value: email }],
+    //     context: { pageUri: window.location.href, pageName: document.title }
+    //   })
+    // }).then(() => showSuccess()).catch(() => showSuccess());
+    // ────────────────────────────────────────────────────
+
+    showSuccess(); // remove when HubSpot is wired
+  }
+
+  function showSuccess() {
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+  }
+
+  // Smooth scroll for the bottom CTA link
+  document.querySelector('.cta-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('gate-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 </script>
 
